@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import "./Style.css";
 import InputField from "./Utils/InputField";
-import Modal from "./Model";
+import MyModal from "./MyModel";
 
 const Grid = () => {
   const gridRef = useRef(null);
@@ -265,7 +265,7 @@ const Grid = () => {
         </button>
       </div>
 
-      {showModal &&  <Modal isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+      { <MyModal isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
     }
     </div>
   );
