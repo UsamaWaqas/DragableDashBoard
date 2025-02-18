@@ -17,8 +17,9 @@ import {
   Gauge
 } from "lucide-react";
 import "./Style.css";
-import InputField from "./Utils/InputField";
+import InputField from "./InputField";
 import MyModal from "./MyModel";
+
 
 const Grid = () => {
   const gridRef = useRef(null);
@@ -26,22 +27,21 @@ const Grid = () => {
   const [showModal, setShowModal] = useState(false);
   const [popupData, setPopupData] = useState({ name: "", companyName: "", Age: "" });
   const [tempWidget, setTempWidget] = useState(null);
-  const [items, setItems] = useState(() => {
-    const saved = localStorage.getItem("gridItems");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [items, setItems] = useState([]);
   const [activeTab, setActiveTab] = useState("devices");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
+ 
     if (!gridRef.current) return;
     if (!gridInstance.current) {
       gridInstance.current = GridStack.init(
         { float: true, cellHeight: 100 },
         gridRef.current
       );
-      setTimeout(() => {
-        const savedItems = JSON.parse(localStorage.getItem("gridItems")) || [];
+    
+      const savedItems = JSON.parse(localStorage.getItem("gridItems")) || [];
+     
         savedItems.forEach((widget) => {
           gridInstance.current.addWidget({
             id: widget.id,
@@ -49,11 +49,14 @@ const Grid = () => {
             y: widget.y,
             w: widget.w,
             h: widget.h,
-            content: widget.content 
+            content: widget.content ,
+           
           });
         });
-        setItems(savedItems);
-      }, 0);
+
+          setItems(savedItems);
+       
+     
     }
     gridInstance.current.on("change", (_, updatedItems) => {
       const newItems = updatedItems.map((el) => ({
@@ -114,23 +117,7 @@ const Grid = () => {
 
   return (
     <div className="app relative">
-      {/* Toolbar */}
-      {/* <div className="flex w-auto border-2 border-amber-500 h-[60px] justify-between">
-        <button className="h-[52px] border-2 border-[#ebebeb] items-center w-[40px]">
-          <CirclePlus />
-        </button>
-        <div className="flex w-[171px] p-3 h-[55px]">
-          <button className="bg-[#ebebeb] w-[52px] pt-2 pb-4 ml-1 h-[40px]">
-            <LockKeyholeOpen />
-          </button>
-          <button className="bg-[#ebebeb] w-[52px] pt-2 pb-4 ml-1 h-[40px]">
-            <Share2 />
-          </button>
-          <button className="bg-[#ebebeb] w-[52px] pt-2 pb-4 ml-1 h-[40px]">
-            <Trash2 />
-          </button>
-        </div>
-      </div> */}
+      
 
       {/* Main Content */}
       <div className="container box-border m-0 p-0 min-w-full mt-8 border-1 border-[#eee] flex">
