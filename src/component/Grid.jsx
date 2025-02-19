@@ -17,7 +17,9 @@ import {
   Gauge
 } from "lucide-react";
 import "./Style.css";
-import InputField from "./Utils/InputField";
+import InputField from "./InputField";
+import DeviceWidget from "./DeviceWidget";
+import TankWidget from "./TankWidget"
 import MyModal from "./MyModel";
 import DeviceData from "./Widgets/DeviceData";
 import { Link } from "react-router-dom";
@@ -327,6 +329,18 @@ const Grid = () => {
             setPopupData={setPopupData}
             handleModalSubmit={handleModalSubmit}
         />
+        {/*   { <DeviceWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />*/}
+        {/*}*/}
+        {/*  { <TankWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />*/}
+        {/*}*/}
+        {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+      }  */}
+        {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+      }  */}
+        {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+      }  */}
+        {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+      }  */}
       </>
   );
 };

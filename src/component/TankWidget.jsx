@@ -4,8 +4,9 @@ import Modal from "@mui/material/Modal";
 import InputField from "../component/InputField"; // Adjust path if needed
 import ShowAndHide from "../component/ShowAndHide"
 import Misc_Settings from "./Misc_Settings";
+import ReusableModal from "./ReuseAbleModel";
 
-export default function MyModal({
+export default function TankWidget({
   isOpen,
   onClose,
   popupData,
@@ -40,7 +41,6 @@ export default function MyModal({
             {[
               { label: "Widget Name (optional)", key: "name" },
 
-              { label: "Company Name", key: "companyName" }
             ].map((field) => (
               <div key={field.key} className="p-4 bg-gray-100 rounded-xl">
                 <div className="bg-white   rounded-lg">
