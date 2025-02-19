@@ -20,6 +20,7 @@ import "./Style.css";
 import InputField from "./InputField";
 import MyModal from "./MyModel";
 import DeviceData from "./DeviceData";
+import TankLevel from "./TankLevel";
 
 
 const Grid = () => {
@@ -252,13 +253,18 @@ const Grid = () => {
           {isSidebarOpen ? <ChevronLeft /> : <ChevronRight />}
         </button>
       </div>
-{/* 
-      { <MyModal isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+
+      {/* { <MyModal isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
         
     } */}
-    { <DeviceData isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+    {/* { <DeviceData isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+        
+      } */}
+
+      { <TankLevel isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
         
       }
+
     </div>
   );
 };
