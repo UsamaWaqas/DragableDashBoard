@@ -20,6 +20,7 @@ import "./Style.css";
 import InputField from "./Utils/InputField";
 import MyModal from "./MyModel";
 import DeviceData from "./Widgets/DeviceData";
+import { Link } from "react-router-dom";
 
 const Grid = () => {
   const gridRef = useRef(null);
@@ -167,6 +168,10 @@ const Grid = () => {
 
   return (
       <>
+        <nav>
+          <Link to="/devices" className="bg-gray-700 text-white">Devices</Link>
+        </nav>
+
         <div className="app relative">
           {/* Main Content */}
           <div className="container box-border m-0 p-0 min-w-full mt-8 border-1 border-[#eee] flex">
@@ -315,7 +320,6 @@ const Grid = () => {
           </div>
         </div>
 
-        {/* Move MyModal outside of the main container */}
         <MyModal
             isOpen={showModal}
             onClose={() => setShowModal(false)}
