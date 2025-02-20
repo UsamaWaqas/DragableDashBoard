@@ -6,7 +6,7 @@ import ShowAndHide from "../component/ShowAndHide"
 import Misc_Settings from "./Misc_Settings";
 import ReusableModal from "./ReuseAbleModel";
 
-export default function TankLevel({
+export default function battery({
   isOpen,
   onClose,
   popupData,

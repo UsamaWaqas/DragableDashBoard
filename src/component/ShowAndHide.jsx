@@ -5,8 +5,8 @@ import Switch from "@mui/material/Switch";
 import DropDown from "./DropDown";
 import ToggleBtn from "./ToggleBtn";
 
-function ShowAndHide() {
-  const [isExpanded, setIsExpanded] = useState(false);
+function ShowAndHide({  }) {
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const [location, setlocation] = useState("");
   const [Device, setDevices] = useState("");
@@ -57,7 +57,7 @@ function ShowAndHide() {
           />
         )}
         {isExpanded && (
-        <>
+      <div>
         <DropDown
           label="Location"
           onChange={handleChange}
@@ -71,6 +71,7 @@ function ShowAndHide() {
           value={Device}
           options={Devices}
         />
+      
         <div>
           <h1 className="mt-8 font-bold text-gray-400">Options</h1>
 
@@ -79,7 +80,7 @@ function ShowAndHide() {
            <ToggleBtn defaultChecked />
           </div>
         </div>
-        </>
+        </div>
          )}
       </div>
     </div>

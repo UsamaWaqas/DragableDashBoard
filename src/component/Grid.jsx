@@ -14,13 +14,25 @@ import {
   Signal,
   BarChart2,
   Wifi,
-  Gauge
+  Gauge,
+  Binary,
+  ToggleRight,
+  SquareM,
+  BatteryCharging,
+  RadioTower,
+  Thermometer
 } from "lucide-react";
 import "./Style.css";
 import InputField from "./InputField";
-import MyModal from "./MyModel";
-import DeviceData from "./DeviceData";
-import TankLevel from "./TankLevel";
+import DeviceDefaultWidget from "./DeviceDefualtWidget";
+import DeviceWidget from "./DeviceWidget";
+import TankLevelWidget from "./TankLevelWidget";
+import ValueWidget from "./ValueWidget";
+import ToggleButtonWidget from "./ToggleButtonWidget";
+import StatusWidget from "./StatusWidget";
+import MeterWidget from "./MeterWidget";
+import TemperatureWidget from "./TemperatureWidget";
+import SignalStrength from "./SignalStrength";
 
 
 const Grid = () => {
@@ -202,7 +214,7 @@ const Grid = () => {
                       draggable
                       onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
                     >
-                      <Smartphone size={20} className="mr-8" /> Real-time Data
+                      <Smartphone size={20} className="mr-8" /> Device Data (Default)
                     </div>
                     <div
                       className="widget flex font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
@@ -210,7 +222,7 @@ const Grid = () => {
                       onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
                     >
                       <Database size={20} className="mr-8" /> Device Data
-                      (Default)
+                      (MultiLevel)
                     </div>
                     <div
                       className="widget flex  font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
@@ -231,7 +243,21 @@ const Grid = () => {
                       draggable
                       onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
                     >
-                      <Signal size={20} className="mr-8" /> Status
+                      <Binary  size={20}  className="mr-8" /> Status
+                    </div>
+                    <div
+                      className="widget flex  font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
+                    >
+                      <BatteryCharging size={20} className="mr-8" /> Battery
+                    </div>
+                    <div
+                      className="widget flex  font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
+                    >
+                      <ToggleRight size={20} className="mr-8" /> Toggle button
                     </div>
                     <div
                       className="widget flex  font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
@@ -240,6 +266,21 @@ const Grid = () => {
                     >
                       <Wifi size={20} className="mr-8" /> Online Status
                     </div>
+                    <div
+                      className="widget flex  font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
+                    >
+                      <SquareM size={20} className="mr-8" /> Meter
+                    </div>
+                    <div
+                      className="widget flex  font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, { w: 3, h: 2 })}
+                    >
+                      <RadioTower size={20} className="mr-8" /> Signal Strength
+                    </div>
+
                   </div>
                 </>
               )}
@@ -247,23 +288,44 @@ const Grid = () => {
           </div>
         )}
         <button
-          className="absolute bottom-4 mr-12 right-0 z-10 bg-blue-500 transition-transform duration-300 text-white p-4 rounded-full shadow-md"
+          className="absolute bottom-4 mr-12 right-0 z-10 bg-blue-500 transition-transform duration-1000 text-white p-4 rounded-full shadow-md"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           {isSidebarOpen ? <ChevronLeft /> : <ChevronRight />}
         </button>
       </div>
 
-      {/* { <MyModal isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+      {/* { <DeviceDefaultWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
         
     } */}
-    {/* { <DeviceData isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+   {/* { <DeviceWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
         
-      } */}
+      }  */}
 
-      { <TankLevel isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+    {/* { <TankLevelWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
         
-      }
+      }  */}
+      {/* { <ValueWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+        
+      }  */}
+       {/* { <ToggleButtonWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+        
+      }  */}
+       
+       
+      {/* { <StatusWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+        
+      }  */}
+      {/* { <MeterWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
+        
+      }  */}
+      {/* { <TemperatureWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} /> 
+        
+      }  */}
+
+      { <SignalStrength isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} /> 
+        
+      } 
 
     </div>
   );

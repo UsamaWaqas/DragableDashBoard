@@ -5,7 +5,8 @@ import InputField from "../component/InputField"; // Adjust path if needed
 import ShowAndHide from "../component/ShowAndHide"
 import Misc_Settings from "./Misc_Settings";
 
-export default function MyModal({
+
+export default function TankLevel({
   isOpen,
   onClose,
   popupData,
@@ -16,8 +17,8 @@ export default function MyModal({
 
   return (
     <Modal open={isOpen} onClose={onClose} aria-labelledby="modal-title">
-      <div  className="fixed left-0 w-full h-full flex overflow-y-auto  items-center justify-center bg-black/50">
-        <div className="bg-white rounded-2xl p-6 w-[800px]  top-18 shadow-lg relative">
+      <div  className="fixed top-0 left-0 w-full h-screen flex  overflow-y-auto   justify-center bg-black/50">
+        <div className="bg-white rounded-2xl p-6 w-[800px] h-fit my-10  top-0 shadow-lg relative">
           {/* Close Button */}
           <button
             onClick={onClose}
@@ -40,7 +41,6 @@ export default function MyModal({
             {[
               { label: "Widget Name (optional)", key: "name" },
 
-              { label: "Company Name", key: "companyName" }
             ].map((field) => (
               <div key={field.key} className="p-4 bg-gray-100 rounded-xl">
                 <div className="bg-white   rounded-lg">

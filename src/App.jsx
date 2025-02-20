@@ -1,7 +1,7 @@
 
 import './App.css'
 import Grid from './component/Grid'
-import Settings from './component/Settings'
+
 import ToggleBtn from './component/ToggleBtn'
  
 
