@@ -171,7 +171,14 @@ const Grid = () => {
   return (
       <>
         <nav>
-          <Link to="/devices" className="bg-gray-700 text-white">Devices</Link>
+          <Link to="/devicedata" className="bg-gray-700 text-white">Devices</Link>
+          <Link to="/temperaturedevice" className="ml-2 bg-gray-700 text-white">TemperatureData</Link>
+          <Link to="/tanklevel" className="ml-2 bg-gray-700 text-white">TankLevel</Link>
+          <Link to="/value" className="ml-2 bg-gray-700 text-white">Value</Link>
+          <Link to="/status" className="ml-2 bg-gray-700 text-white">Status</Link>
+          <Link to="/onlinestatus" className="ml-2 bg-gray-700 text-white">OnlineStatus</Link>
+          <Link to="/toggledevice" className="ml-2 bg-gray-700 text-white">ToggleDevice</Link>
+
         </nav>
 
         <div className="app relative">
