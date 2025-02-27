@@ -35,6 +35,7 @@ import TemperatureWidget from "./TemperatureWidget";
 import SignalStrength from "./SignalStrength";
 
 
+
 const Grid = () => {
   const gridRef = useRef(null);
   const gridInstance = useRef(null);
@@ -323,9 +324,10 @@ const Grid = () => {
         
       }  */}
 
-      { <SignalStrength isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} /> 
+      {/* { <SignalStrength isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} /> 
         
-      } 
+      }  */}
+
 
     </div>
   );

@@ -34,6 +34,7 @@ const ToggleBtn = ({
       {label && <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{label}</span>}
     </label>
   );
+  
 };
 
 export default ToggleBtn;
