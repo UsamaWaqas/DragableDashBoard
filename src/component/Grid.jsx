@@ -7,6 +7,7 @@ import {
   Share2,
   Trash2,
   X,
+    Droplet,
   ChevronLeft,
   ChevronRight,
   Smartphone,
@@ -20,9 +21,16 @@ import "./Style.css";
 import InputField from "./InputField";
 import DeviceWidget from "./DeviceWidget";
 import TankWidget from "./TankWidget"
+import WaterLeak from "./Widgets/WaterLeak.jsx";
+import Status from "./Widgets/Status.jsx";
 import MyModal from "./MyModel";
+import OnlineStatus from "./Widgets/OnlineStatus.jsx"
 import DeviceData from "./Widgets/DeviceData";
+import TankLevel from "./Widgets/TankLevel.jsx";
+import Value from "./Widgets/Value.jsx"
+import TemperatureDevice from "./Widgets/TemperatureDevice.jsx"
 import { Link } from "react-router-dom";
+import { createRoot } from 'react-dom/client';
 
 const Grid = () => {
   const gridRef = useRef(null);
@@ -33,7 +41,7 @@ const Grid = () => {
   const [items, setItems] = useState([]);
   const [activeTab, setActiveTab] = useState("devices");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
+  let timeStampId
   useEffect(() => {
     if (!gridRef.current) return;
 
@@ -47,31 +55,68 @@ const Grid = () => {
       );
 
       savedItems.forEach((widget) => {
-        gridInstance.current.addWidget({
-          id: widget.id,
-          x: widget.x,
-          y: widget.y,
-          w: widget.w,
-          h: widget.h,
-          content: renderWidgetContent(widget.widgetType),
-        });
+        const widgetContent = InitialRenderWidgetContent(widget.widgetType);
+        const widgetElement = document.createElement("div");
+        widgetElement.innerHTML = widgetContent;
+        widgetElement.setAttribute("id", widget.id);
+        widgetElement.setAttribute("gs-x", widget.x);
+        widgetElement.setAttribute("gs-y", widget.y);
+        widgetElement.setAttribute("gs-w", widget.w);
+        widgetElement.setAttribute("gs-h", widget.h);
+
+        const placeholder = document.createElement("div");
+        placeholder.className = "widget-content";
+        widgetElement.appendChild(placeholder);
+
+        gridInstance.current.makeWidget(widgetElement);
+
+        const root = createRoot(placeholder);
+        switch (widget.widgetType) {
+          case "deviceData":
+            root.render(<div className="widget-content"><DeviceData /></div>);
+            break;
+          case "tankLevel":
+            root.render(<div className="widget-content"><TankLevel /></div>);
+            break;
+          case "value":
+            root.render(<div className="widget-content"><Value /></div>);
+            break;
+          case "status":
+            root.render(<div className="widget-content"><Status /></div>);
+            break;
+          case "onlineStatus":
+            root.render(<div className="widget-content"><OnlineStatus /></div>);
+            break;
+          case "waterLeak":
+            root.render(<div className="widget-content"><WaterLeak /></div>);
+            break;
+          case "temperatureDevice":
+            root.render(<div className="widget-content"><TemperatureDevice /></div>);
+            break;
+          default:
+            root.render(<div className="widget-content">Default Widget</div>);
+        }
+
       });
 
     }
-    console.log("sitems".savedItems)
-    gridInstance.current.on("change", (_, updatedItems) => {
-      const newItems = updatedItems.map((el) => {
-        // Make sure gsId exists
-        let id = el.el.getAttribute("gs-id") || el.el.dataset.gsId;
-        id = id ? Number(id) : null;
 
-        if (!id) {
-          console.warn("Missing gsId in item:", el.el);
+    gridInstance.current.on("change", (_, passedUpdatedItems) => {
+      console.log("Change Event Fired - Items:", passedUpdatedItems);
+      setItems((prevItems) => {
+      const newItems = passedUpdatedItems.map((el) => {
+        // Make sure gsId exists
+        let id = el?.id || el.el?.getAttribute("id");
+        id = id ? Number(id) : null;
+        console.log("Processing item with ID:", id);
+
+        if (isNaN(id)) {
+          console.error("Invalid ID:", el.id);
           return null;
         }
 
         // Find the existing item to retain widgetType
-        const existingItem = items.find((item) => item.id === id) || {};
+        const existingItem = prevItems.find((item) => item.id === id) || {};
 
         return {
           id,
@@ -82,9 +127,9 @@ const Grid = () => {
           widgetType: existingItem.widgetType || null,
         };
       }).filter(Boolean);
-
+        console.log("New Items:", newItems);
       // Use functional setState to update the items
-      setItems((prevItems) => {
+
         const updatedItems = prevItems.map((item) => {
           const updatedItem = newItems.find((newItem) => newItem.id === item.id);
           return updatedItem || item;
@@ -94,7 +139,7 @@ const Grid = () => {
           ...updatedItems,
           ...newItems.filter((newItem) => !updatedItems.some((item) => item.id === newItem.id)),
         ];
-
+        console.log("Final Updated State:", finalItems);
         // Save updated items to localStorage
         localStorage.setItem("gridItems", JSON.stringify(finalItems));
         return finalItems;
@@ -138,54 +183,137 @@ const Grid = () => {
       localStorage.setItem("gridItems", JSON.stringify(updatedItems));
       return updatedItems;
     });
-    gridInstance.current.addWidget({
-      id: `${newWidget.id}`,
-      x: newWidget.x,
-      y: newWidget.y,
-      w: newWidget.w,
-      h: newWidget.h,
-      content: renderWidgetContent(newWidget.widgetType),
-    });
+    const widgetContent = SubmitRenderWidgetContent(newWidget.widgetType);
+    const widgetElement = document.createElement("div");
+    widgetElement.innerHTML = widgetContent;
+    widgetElement.setAttribute("id", `${newWidget.id}`);
+    widgetElement.setAttribute("gs-x", newWidget.x);
+    widgetElement.setAttribute("gs-y", newWidget.y);
+    widgetElement.setAttribute("gs-w", newWidget.w);
+    widgetElement.setAttribute("gs-h", newWidget.h);
+
+    gridInstance.current.makeWidget(widgetElement);
+    // Render the React component into the widget
+    console.log("wE",widgetElement)
+    const placeholder = widgetElement.querySelector(`#${timeStampId}`);
+    console.log("pc",placeholder)
+    if (placeholder) {
+      const root = createRoot(placeholder);
+      switch (newWidget.widgetType) {
+        case "deviceData":
+          root.render(<div className="widget-content"><DeviceData /></div>);
+          break;
+        case "tankLevel":
+          root.render(<div className="widget-content"><TankLevel /></div>);
+          break;
+        case "value":
+          root.render(<div className="widget-content"> <Value /></div>);
+          break;
+        case "status":
+          root.render(<div className="widget-content"><Status /></div>);
+          break;
+        case "onlineStatus":
+          root.render(<div className="widget-content"><OnlineStatus /></div>);
+          break;
+        case "waterLeak":
+          root.render(<div className="widget-content"><WaterLeak /></div>);
+          break;
+        case "temperatureDevice":
+          root.render(<div className="widget-content"><TemperatureDevice /></div>);
+          break;
+        default:
+          root.render(<div className="widget-content">Default Widget</div>);
+      }
+    }
+
     setShowModal(false);
   };
 
-  const renderWidgetContent = (widgetType) => {
-    console.log("wtype",widgetType)
+  const SubmitRenderWidgetContent = (widgetType) => {
+    console.log("wtype", widgetType);
+    timeStampId = `widget-${Date.now()}`; // Unique ID for the widget
     switch (widgetType) {
       case "deviceData":
-        return <div>Hellow</div>;
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
       case "tankLevel":
-        return <TankLevel />;
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
       case "value":
-        return <Value />;
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
       case "status":
-        return <Status />;
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
       case "onlineStatus":
-        return <OnlineStatus />;
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
+      case "waterLeak":
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
+      case "temperatureDevice":
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
       default:
-        return null;
+        return `<div id="${timeStampId}" class="widget-content"></div>`;
+    }
+  };
+
+  const InitialRenderWidgetContent = (widgetType) => {
+    console.log("wtype", widgetType);
+    timeStampId = `widget-${Date.now()}`; // Unique ID for the widget
+    switch (widgetType) {
+      case "deviceData":
+        return `<div id="${timeStampId}" ></div>`;
+      case "tankLevel":
+        return `<div id="${timeStampId}"></div>`;
+      case "value":
+        return `<div id="${timeStampId}"></div>`;
+      case "status":
+        return `<div id="${timeStampId}"></div>`;
+      case "onlineStatus":
+        return `<div id="${timeStampId}"></div>`;
+      case "waterLeak":
+        return `<div id="${timeStampId}"></div>`;
+      case "temperatureDevice":
+        return `<div id="${timeStampId}"></div>`;
+      default:
+        return `<div id="${timeStampId}""></div>`;
     }
   };
   console.log("wdata",items)
 
   return (
       <>
-        <nav>
-          <Link to="/devicedata" className="bg-gray-700 text-white">Devices</Link>
-          <Link to="/temperaturedevice" className="ml-2 bg-gray-700 text-white">TemperatureData</Link>
-          <Link to="/tanklevel" className="ml-2 bg-gray-700 text-white">TankLevel</Link>
-          <Link to="/value" className="ml-2 bg-gray-700 text-white">Value</Link>
-          <Link to="/status" className="ml-2 bg-gray-700 text-white">Status</Link>
-          <Link to="/onlinestatus" className="ml-2 bg-gray-700 text-white">OnlineStatus</Link>
-          <Link to="/toggledevice" className="ml-2 bg-gray-700 text-white">ToggleDevice</Link>
-
-        </nav>
+        {/*<nav>*/}
+        {/*  <Link to="/devicedata" className="bg-gray-700 text-white">Devices</Link>*/}
+        {/*  <Link to="/temperaturedevice" className="ml-2 bg-gray-700 text-white">TemperatureData</Link>*/}
+        {/*  <Link to="/tanklevel" className="ml-2 bg-gray-700 text-white">TankLevel</Link>*/}
+        {/*  <Link to="/value" className="ml-2 bg-gray-700 text-white">Value</Link>*/}
+        {/*  <Link to="/status" className="ml-2 bg-gray-700 text-white">Status</Link>*/}
+        {/*  <Link to="/onlinestatus" className="ml-2 bg-gray-700 text-white">OnlineStatus</Link>*/}
+        {/*  <Link to="/toggledevice" className="ml-2 bg-gray-700 text-white">ToggleDevice</Link>*/}
+        {/*  <Link to="/battery" className="ml-2 bg-gray-700 text-white">Battery</Link>*/}
+        {/*  <Link to="/meter" className="ml-2 bg-gray-700 text-white">Meter</Link>*/}
+        {/*  <Link to="/signal" className="ml-2 bg-gray-700 text-white">Signal-Strngth</Link>*/}
+        {/*  <Link to="/waterleak" className="ml-2 bg-gray-700 text-white">WaterLeak</Link>*/}
+        {/*</nav>*/}
+        {/*<h5>Devices:</h5>*/}
+        {/*<nav>*/}
+        {/*  <Link to="/energyconsumptionStatus" className="bg-gray-700 text-white">Energy consumtion status</Link>*/}
+        {/*  <Link to="/acceleration" className="ml-2 bg-gray-700 text-white">Acceleration</Link>*/}
+        {/*  <Link to="/moisture" className="ml-2 bg-gray-700 text-white">Moisture</Link>*/}
+        {/*  <Link to="/humidity" className="ml-2 bg-gray-700 text-white">Humidity</Link>*/}
+        {/*  <Link to="/reed" className="ml-2 bg-gray-700 text-white">Reed Switch</Link>*/}
+        {/*  <Link to="/reedcount" className="ml-2 bg-gray-700 text-white">Reed Switch Count</Link>*/}
+        {/*  <Link to="/Devicebattery" className="ml-2 bg-gray-700 text-white">DeviceBattery</Link>*/}
+        {/*  <Link to="/relaycontrol" className="ml-2 bg-gray-700 text-white">Relay Control</Link>*/}
+        {/*  <Link to="/energyconsumptionmeter" className="ml-2 bg-gray-700 text-white">Energy consumtion Meter</Link>*/}
+        {/*  <Link to="/ammeter" className="ml-2 bg-gray-700 text-white">Ammeter</Link>*/}
+        {/*  <Link to="/voltmeter" className="ml-2 bg-gray-700 text-white">Voltmeter</Link>*/}
+        {/*  <Link to="/power" className="ml-2 bg-gray-700 text-white">Power Meter(RealPower)</Link>*/}
+        {/*  <Link to="/powerApparent" className="ml-2 bg-gray-700 text-white">Power Meter(Apparent Power)</Link>*/}
+        {/*  <Link to="/powerFactor" className="ml-2 bg-gray-700 text-white">Power Factor Meter</Link>*/}
+        {/*</nav>*/}
 
         <div className="app relative">
           {/* Main Content */}
           <div className="container box-border m-0 p-0 min-w-full mt-8 border-1 border-[#eee] flex">
             <div
-                className="grid-stack p-[10px] bg-[#f0f0f0] flex-1 border-[1px] border-[#ccc] min-h-[500px]"
+                className="p-[10px] bg-[#F8F8F8] flex-1 border-[1px] border-[#ccc] min-h-[700px]"
                 ref={gridRef}
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
@@ -312,6 +440,24 @@ const Grid = () => {
                                 }
                             >
                               <Wifi size={20} className="mr-8" /> Online Status
+                            </div>
+                            <div
+                                className="widget flex font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
+                                draggable
+                                onDragStart={(e) =>
+                                    handleDragStart(e, { w: 3, h: 2 }, "waterLeak")
+                                }
+                            >
+                              <Droplet size={20} className="mr-8" /> Water Leak
+                            </div>
+                            <div
+                                className="widget flex font-bold mb-[10px] p-[10px] bg-[#eee] cursor-move"
+                                draggable
+                                onDragStart={(e) =>
+                                    handleDragStart(e, { w: 3, h: 2 }, "temperatureDevice")
+                                }
+                            >
+                              <Droplet size={20} className="mr-8" /> Temprature Device
                             </div>
                           </div>
                         </>

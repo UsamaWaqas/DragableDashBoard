@@ -1,30 +1,20 @@
-import MyModal from "../MyModel";
-import React, {useState} from "react";
-import { BiCube } from "react-icons/bi";
-import AnalyticsIcon from '@mui/icons-material/Analytics';
+import React from "react";
+import cylinder from "/src/images/cylinder-svgrepo-com.svg";
+import WidgetInitialDiv from "./WidgetInitialDiv.jsx";
 
 const TankLevel = () =>{
-    const [popupData, setPopupData] = useState({ name: "Tank Level" });
     return(
         <>
-            <div className="w-full lg:w-1/2 xl:w-1/4 sm:w-1/2 md-1/2 ml-10 flex-wrap ">
-                <div className="bg-white rounded-lg overflow-hidden border-1 border-[#9926AC] p-2 mt-3">
-                    <p className="text-xs font-medium text-gray-500"><AnalyticsIcon className="text-[#b733ce]" /> {popupData.name}</p>
+            <WidgetInitialDiv title="Tank Level">
                     <div className="p-4">
-                        <p className="text-center text-gray-600 font-medium">Ammeter</p>
                         <div className="flex justify-center">
-                            <BiCube className="w-40 h-40" />
+                            <img src={cylinder} alt="Temperature"/>
                         </div>
-                        <p className="text-center text-4xl text-[#FF9800]">0.00%</p>
+                        <p className="text-center text-4xl text-[#1E90FF]">0.00%</p>
                         <p className="text-center text-sm text-gray-400">(0.00 / 100.00) A</p>
                     </div>
-                </div>
-            </div>
+            </WidgetInitialDiv>
 
-            <MyModal
-                popupData={popupData}
-                setPopupData={setPopupData}
-            />
         </>
     );
 }

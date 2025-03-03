@@ -1,27 +1,26 @@
 import React, {useState} from "react";
-import { PiThermometerFill } from "react-icons/pi";
-import MyModal from "../MyModel";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
+import temperatureImage from "/src/images/temperatureIcons/temperature.png";
+import thermometerImage from "/src/images/temperatureIcons/thermometer.png";
+import WidgetInitialDiv from "./WidgetInitialDiv.jsx";
 
 const TemperatureDevice = () =>{
-    const [popupData, setPopupData] = useState({ name: "Temperature Device" });
+    const [temperature, SetTemperature]=useState(false);
     return(
         <>
-            <div className="w-full lg:w-1/2 xl:w-1/4 sm:w-1/2 md-1/2 ml-10 flex-wrap ">
-                <div className="bg-white rounded-lg overflow-hidden border-1 border-[#9926AC] p-2 mt-3">
-                    <p className="text-xs font-medium text-gray-500"><AnalyticsIcon className="text-[#b733ce]" /> {popupData.name}</p>
+                <WidgetInitialDiv title="TemperatureDevice">
                     <div className="p-4">
                         <div className="flex flex-wrap mt-4">
-                            <PiThermometerFill className="w-35 h-35 text-gray-400" />
+                            <div className="flex items-center justify-between">
+                            {temperature ? (
+                                <img src={temperatureImage} alt="Temperature"/>
+                            ):(<img src={thermometerImage} alt="Temperature" />)
+                            }
+                                <p className="text-4xl">-</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </WidgetInitialDiv>
 
-            <MyModal
-                popupData={popupData}
-                setPopupData={setPopupData}
-            />
         </>
     );
 }
