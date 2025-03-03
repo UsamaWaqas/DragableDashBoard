@@ -2,7 +2,7 @@ import { CircleChevronUp, CircleChevronDown } from "lucide-react";
 import { useState } from "react";
 
 const Settings = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
 
   const toggleSize = () => {
     setIsExpanded(!isExpanded);
