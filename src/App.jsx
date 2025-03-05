@@ -26,6 +26,11 @@ import Voltmeter from "./component/Devices/Voltmeter.jsx";
 import PowerMeterRealPower from "./component/Devices/PowerMeterRealPower.jsx";
 import PowerMeterApparentPower from "./component/Devices/PowerMeterApparentPower.jsx";
 import PowerFactorMeter from "./component/Devices/PowerFactorMeter.jsx";
+import DonutChart from "./component/GraphWidgets/DonutChart.jsx";
+import LineChart from "./component/GraphWidgets/LineChart.jsx";
+import GuageChart from "./component/GraphWidgets/GuageChart.jsx";
+import ProgressBar from "./component/GraphWidgets/ProgressBar.jsx";
+import BarChart from "./component/GraphWidgets/BarChart.jsx";
 // import Settings from './component/Settings'
 //
 // import ToggleBtn from './component/ToggleBtn'
@@ -65,6 +70,11 @@ function App() {
                 <Route path="/power" element={<PowerMeterRealPower />} />
                 <Route path="/powerApparent" element={<PowerMeterApparentPower />} />
                 <Route path="/powerFactor" element={<PowerFactorMeter />} />
+                <Route path="/donut" element={<DonutChart />} />
+                <Route path="/linechart" element={<LineChart />} />
+                <Route path="/guagechart" element={<GuageChart />} />
+                <Route path="/progress" element={<ProgressBar />} />
+                <Route path="/barchart" element={<BarChart />} />
             </Routes>
         </Router>
     </div>

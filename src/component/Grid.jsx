@@ -309,6 +309,14 @@ const Grid = () => {
         {/*  <Link to="/powerFactor" className="ml-2 bg-gray-700 text-white">Power Factor Meter</Link>*/}
         {/*</nav>*/}
 
+        <nav>
+          <Link to="/donut" className="bg-gray-700 text-white">Donut Chart</Link>
+          <Link to="/linechart" className="ml-2 bg-gray-700 text-white">Line Chart</Link>
+          <Link to="/guagechart" className="ml-2 bg-gray-700 text-white">Guage Chart</Link>
+          <Link to="/progress" className="ml-2 bg-gray-700 text-white">Progress Bar</Link>
+          <Link to="/barchart" className="ml-2 bg-gray-700 text-white">Bar Chart</Link>
+        </nav>
+
         <div className="app relative">
           {/* Main Content */}
           <div className="container box-border m-0 p-0 min-w-full mt-8 border-1 border-[#eee] flex">
@@ -482,12 +490,11 @@ const Grid = () => {
             setPopupData={setPopupData}
             handleModalSubmit={handleModalSubmit}
         />
-        {/*   { <DeviceWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />*/}
+          { <DeviceWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />}
+
+        {/*{ <TankWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />}*/}
+        {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />*/}
         {/*}*/}
-        {/*  { <TankWidget isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />*/}
-        {/*}*/}
-        {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
-      }  */}
         {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
       }  */}
         {/* { <ToggleButton isOpen={showModal} onClose={() => setShowModal(false)} popupData={popupData} setPopupData={setPopupData} handleModalSubmit={handleModalSubmit} />
